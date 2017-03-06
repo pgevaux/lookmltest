@@ -3,27 +3,28 @@ view: distribution_centers {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.ID ;;
   }
 
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.LATITUDE ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.LONGITUDE ;;
-  }
+#   dimension: latitude {
+#     type: number
+#     sql: ${TABLE}.LATITUDE ;;
+#   }
+#
+#   dimension: longitude {
+#     type: number
+#     sql: ${TABLE}.LONGITUDE ;;
+#   }
 
   dimension: name {
     type: string
     sql: ${TABLE}.NAME ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: [id, name, products.count]
-  }
+#   measure: count {
+#     type: count
+#     drill_fields: [id, name, products.count]
+#   }
 }

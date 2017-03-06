@@ -6,34 +6,12 @@ include: "*.view"
 # include all the dashboards
 include: "*.dashboard"
 
-explore: distribution_centers {}
-
-explore: events {
-  join: users {
-    type: left_outer
-    sql_on: ${events.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: inventory_items {
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-
-  join: distribution_centers {
-    type: left_outer
-    sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-    relationship: many_to_one
-  }
-}
-
 explore: order_items {
+  label: "Customer Orders"
+
   join: inventory_items {
     type: left_outer
-    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+    sql_on: ${order_items.inventory_item_id} = ${inventory_items.id};;
     relationship: many_to_one
   }
 
@@ -43,25 +21,15 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  join: products {
+  join: distribution_centers {
     type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
+    sql_on: ${distribution_centers.id} = ${inventory_items.product_distribution_center_id} ;;
     relationship: many_to_one
   }
 
-  join: distribution_centers {
+  join: user_order_facts {
     type: left_outer
-    sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
+    sql_on: ${user_order_facts.user_id}= ${order_items.user_id} ;;
     relationship: many_to_one
   }
 }
-
-explore: products {
-  join: distribution_centers {
-    type: left_outer
-    sql_on: ${products.distribution_center_id} = ${distribution_centers.id} ;;
-    relationship: many_to_one
-  }
-}
-
-explore: users {}
